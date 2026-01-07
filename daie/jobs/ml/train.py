@@ -1,4 +1,3 @@
-# daie/jobs/ml/train.py
 import pandas as pd
 import mlflow
 import mlflow.sklearn
@@ -7,12 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, f1_score
 from daie.jobs.ml.model import get_model
-
 from pyspark.sql import SparkSession
-
-spark = SparkSession.builder.getOrCreate()
-
-
 
 
 DEST_DB = "daie_chn_dev_gold.dev_ml_accident_severity_prediction"
@@ -21,6 +15,7 @@ TRAIN_TABLE = f"{DEST_DB}.accident_train_v1"
 FEATURE_COLS = ["lum", "atm", "col", "jour", "mois", "vma", "circ", "nbv", "surf", "infra", "situ", "hrmn_minutes"]
 
 def main():
+    spark = SparkSession.builder.getOrCreate()
     sdf = spark.table(TRAIN_TABLE)
     pdf = sdf.toPandas()
 
@@ -68,7 +63,6 @@ def main():
         mlflow.log_metric("accuracy", float(acc))
         mlflow.log_metric("f1_score", float(f1))
 
-        # IMPORTANT: log aussi le scaler + model ensemble
         # => on crée un petit dict packagé
         artifact = {"model": model, "scaler": scaler, "feature_cols": list(X.columns)}
         mlflow.sklearn.log_model(artifact, "model_bundle")
