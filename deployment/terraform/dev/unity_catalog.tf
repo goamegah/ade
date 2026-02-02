@@ -250,7 +250,7 @@ resource "databricks_volume" "init_scripts" {
 resource "databricks_service_principal" "github_actions" {
   provider                   = databricks.workspace
   application_id             = var.sp_client_id
-  display_name               = "SP GitHub Actions - ${var.environment}"
+  display_name               = "sp-daie-application-id-chn-${var.environment}"
   active                     = true
   allow_cluster_create       = true
   allow_instance_pool_create = false

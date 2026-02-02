@@ -37,6 +37,7 @@ variable "tags" {
 # ==============================================================================
 # Variables Service Principal (pour les permissions futures - pas pour Terraform)
 # ==============================================================================
+
 variable "sp_client_id" {
   description = "Client ID du Service Principal (pour Key Vault et permissions Databricks)"
   type        = string
@@ -92,4 +93,16 @@ variable "storage_replication_type" {
     condition     = contains(["LRS", "GRS", "RAGRS", "ZRS"], var.storage_replication_type)
     error_message = "Le type de réplication doit être : LRS, GRS, RAGRS ou ZRS"
   }
+}
+
+variable "subscription_id" {
+	description = ""
+  	type        = string
+  	sensitive   = true
+}
+
+variable "tenant_id" {
+	description = "ID du compte Databricks (requis pour Unity Catalog)"
+	type        = string
+  	sensitive   = true
 }

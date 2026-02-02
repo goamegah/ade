@@ -2,7 +2,7 @@
 # Azure Data Factory
 # ==============================================================================
 resource "azurerm_data_factory" "this" {
-  name                = "adf-${local.name_prefix}"
+  name                = "adf-${local.name_prefix}-2026"
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
 
