@@ -418,7 +418,8 @@ def grant_manage_on_schema(full_schema_name:str, group_name:str):
 def resolve_group(group:str):                                                     #pylint: disable=invalid-name
     dbw_env = get_main_env()
     if group == "DE":
-        return f"G-DE-daie-chn-{dbw_env}"
+        # return f"G-DE-daie-chn-{dbw_env}"
+        return f"G-daie"
     elif group == "DS":
         return f"G-DS-daie-chn-{dbw_env}"
 
