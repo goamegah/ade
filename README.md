@@ -1,5 +1,9 @@
 # Data and Artificial Intelligence Engineering
 
+## Overview architecture
+
+![Architecture](assets/mds_with_azure_databricks.jpg)
+
 ## Unity Catalog environment setup
 
 ```bash
