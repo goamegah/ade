@@ -6,12 +6,12 @@ locals {
   name_prefix = "${var.project}-chn-${var.environment}"
   
   # Noms des ressources
-  resource_group_name   = "rg-${local.name_prefix}"
-  key_vault_name        = "kv-${local.name_prefix}-2025"
-  storage_account_name  = "sta${var.project}chn${var.environment}"
-  databricks_workspace  = "dbw-${local.name_prefix}"
-  access_connector_name = "ac-${local.name_prefix}"
-  metastore_name        = "metastore-${var.project}-${var.location}"
+  resource_group_name   = "rg-${local.name_prefix}-2026"
+  key_vault_name        = "kv-${local.name_prefix}-2026"
+  storage_account_name  = "sta${var.project}chn${var.environment}2026"
+  databricks_workspace  = "dbw-${local.name_prefix}-2026"
+  access_connector_name = "ac-${local.name_prefix}-2026"
+  metastore_name        = "metastore-${var.project}-${var.location}-2026"
   
   # Unity Catalog : <project>_chn_<env>_<layer>
   catalog_bronze = "${var.project}_chn_${var.environment}_bronze"
@@ -112,14 +112,17 @@ resource "azurerm_role_assignment" "access_connector_storage" {
   ]
 }
 
-# Service Principal needs Storage Blob Data Contributor for job execution
-resource "azurerm_role_assignment" "sp_storage" {
-  scope                = azurerm_storage_account.this.id
-  role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = var.sp_object_id
+# Service Principal needs Storage Blob Data Contributor for job 
 
-  depends_on = [azurerm_storage_account.this]
-}
+# resource "azurerm_role_assignment" "sp_storage" {
+#   # principal_type = "ServicePrincipal"
+#   principal_id         = var.sp_object_id
+#   #principal_id = data.azurerm_client_config.current.object_id
+#   scope                = azurerm_storage_account.this.id
+#   role_definition_name = "Storage Blob Data Contributor"
+
+#   depends_on = [azurerm_storage_account.this]
+# }
 
 # ==============================================================================
 # Databricks Workspace
