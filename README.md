@@ -1,6 +1,12 @@
-# Data and Artificial Intelligence Engineering
+# Modern Data Stack with Azure and Databricks: From Ingestion to Analytics and AI
+This repository contains the code for building a modern data platform using Azure services and Databricks and is the official code repository for the book "Modern Data Stack with Azure and Databricks: From Ingestion to Analytics and AI"
+
+In "Modern Data Stack with Azure and Databricks: From Ingestion to Analytics and AI", we explore how to leverage Azure services and Databricks to create a robust, scalable, and efficient data platform. The book covers various aspects of data engineering, data science, and analytics, providing practical examples and best practices for building a modern data stack.
+
 
 ## Overview architecture
+
+
 
 ![Architecture](assets/mds_with_azure_databricks.jpg)
 
