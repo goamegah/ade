@@ -460,3 +460,36 @@ resource "databricks_grants" "external_location_gold" {
     null_resource.grant_storage_access # to ensure access connector setup is done
   ]
 }
+
+# ==============================================================================
+# Grant sur l'External Location Transient (après la ligne 462)
+# ==============================================================================
+resource "databricks_grants" "external_location_transient" {
+  provider          = databricks.workspace
+  external_location = databricks_external_location.transient.name
+  
+  grant {
+    principal  = databricks_service_principal.github_actions.application_id
+    privileges = ["CREATE_EXTERNAL_TABLE", "READ_FILES", "WRITE_FILES"]
+  }
+  
+  depends_on = [
+    databricks_service_principal.github_actions,
+    databricks_external_location.transient,
+    null_resource.grant_storage_access
+  ]
+}
+
+# ==============================================================================
+# External Location pour Transient (après la ligne 131)
+# ==============================================================================
+resource "databricks_external_location" "transient" {
+  provider        = databricks.workspace
+  name            = "ext-${local.name_prefix}-transient"
+  url             = "abfss://transient@${azurerm_storage_account.this.name}.dfs.core.windows.net/"
+  credential_name = databricks_storage_credential.this.name
+  comment         = "External location Transient - fichiers temporaires et staging"
+  force_destroy   = true
+
+  depends_on = [databricks_storage_credential.this]
+}
